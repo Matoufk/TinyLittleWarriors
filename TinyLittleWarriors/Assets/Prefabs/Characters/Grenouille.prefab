@@ -92,6 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7781283056372366903}
+  - component: {fileID: 7625850093734785639}
   m_Layer: 0
   m_Name: Grenouille
   m_TagString: Untagged
@@ -115,3 +116,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7625850093734785639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6969174303961474189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2badd806347fc214d84e17704ed819fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: 50
+  life: 100
+  maxLife: 100
+  speed: 1
+  defense: 2
+  attackSpeed: 2
+  range: 1
+  isAlive: 1
