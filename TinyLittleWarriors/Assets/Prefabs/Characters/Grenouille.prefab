@@ -271,6 +271,7 @@ GameObject:
   - component: {fileID: 7781283056372366903}
   - component: {fileID: 3457929546632774177}
   - component: {fileID: 6854385360553660932}
+  - component: {fileID: 4273107204087031716}
   m_Layer: 0
   m_Name: Grenouille
   m_TagString: Untagged
@@ -323,3 +324,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bar: {fileID: 5122901338476030095}
+  maxHealth: 0
+--- !u!114 &4273107204087031716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6969174303961474189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2badd806347fc214d84e17704ed819fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: 5
+  life: 100
+  maxLife: 100
+  speed: 2
+  defense: 5
+  attackSpeed: 2
+  range: 1
+  isAlive: 1
