@@ -1,50 +1,58 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AgentBehavior : MonoBehaviour
 {
-    public float weight = 1.0f;
-
-    public GameObject target;
-    protected Agent agent;
-    public Vector3 dest;
-
-    public float maxSpeed = 50.0f;
-    public float maxAccel = 50.0f;
-    public float maxRotation = 10.0f;
-    public float maxAngularAccel = 10.0f;
-
-    public virtual void Start()
+    private Agent target;
+    private enum AgentFSM
     {
-        agent = gameObject.GetComponent<Agent>();
-
+        Attack,
+        Seek,
+        Idle
+    }
+    private AgentFSM state;
+    [SerializeField] private seek seekScript;
+    // Start is called before the first frame update
+    void Start()
+    {
+        state = AgentFSM.Seek;
+        target = null;
     }
 
-    public virtual void Update()
+    // Update is called once per frame
+    void Update()
     {
-        agent.SetSteering(GetSteering(), weight);
-    }
-
-    public float MapToRange(float rotation)
-    {
-        rotation %= 360.0f;
-        if (Mathf.Abs(rotation) > 180.0f)
+        switch (state)
         {
-            if (rotation < 0.0f) {
-                rotation += 360.0f;
-            }
-            else
+            case AgentFSM.Seek:
+                if(target == null)
+                {
+                    Agent[] enemies = GameObject.FindObjectsOfType<Agent>();
+                    GetNearestEnemy(enemies);
+                    seekScript.setTarget(target.transform);
+                }
+
+                break;
+        }
+    }
+
+    void GetNearestEnemy(Agent[] enemies)
+    {
+        Agent bestTarget = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+        foreach (Agent potentialTarget in enemies)
+        {
+            Vector3 directionToTarget = potentialTarget.transform.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr)
             {
-                rotation -= 360.0f;
+                closestDistanceSqr = dSqrToTarget;
+                bestTarget = potentialTarget;
             }
         }
 
-        return rotation;
-    }
-
-    public virtual steering GetSteering()
-    {
-        return new steering();
+        target = bestTarget;
     }
 }
