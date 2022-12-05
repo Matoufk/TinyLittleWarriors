@@ -5,17 +5,18 @@ using UnityEngine;
 public class AgentBehavior : MonoBehaviour
 {
     private Agent target;
-    private enum AgentFSM
+    public enum AgentFSM
     {
         Attack,
         Seek,
         Idle
     }
-    private AgentFSM state;
-    [SerializeField] private seek seekScript;
+    [SerializeField] private AgentFSM state;
+    private seek seekScript;
     // Start is called before the first frame update
     void Start()
     {
+        seekScript = GetComponent<seek>();
         state = AgentFSM.Seek;
         target = null;
     }
@@ -32,7 +33,17 @@ public class AgentBehavior : MonoBehaviour
                     GetNearestEnemy(enemies);
                     seekScript.setTarget(target.transform);
                 }
+                seekScript.setTarget(target.transform);
+                seekScript.seeking();
+                break;
 
+            case AgentFSM.Attack:
+                print("ATTAK");
+                int range = (int)GetComponent<CharacterStats>().getRange();
+                if (Vector3.Distance(target.transform.position, transform.position) > range)
+                {
+                    state = AgentFSM.Seek;
+                }
                 break;
         }
     }
@@ -44,15 +55,22 @@ public class AgentBehavior : MonoBehaviour
         Vector3 currentPosition = transform.position;
         foreach (Agent potentialTarget in enemies)
         {
-            Vector3 directionToTarget = potentialTarget.transform.position - currentPosition;
-            float dSqrToTarget = directionToTarget.sqrMagnitude;
-            if (dSqrToTarget < closestDistanceSqr)
+            if (potentialTarget.getFaction() == Agent.Faction.Enemy)
             {
-                closestDistanceSqr = dSqrToTarget;
-                bestTarget = potentialTarget;
+                Vector3 directionToTarget = potentialTarget.transform.position - currentPosition;
+                float dSqrToTarget = directionToTarget.sqrMagnitude;
+                if (dSqrToTarget < closestDistanceSqr)
+                {
+                    closestDistanceSqr = dSqrToTarget;
+                    bestTarget = potentialTarget;
+                }
             }
         }
 
         target = bestTarget;
+    }
+    public void setState(AgentFSM etat)
+    {
+        state = etat;
     }
 }
