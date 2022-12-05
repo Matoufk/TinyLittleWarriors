@@ -62,7 +62,7 @@ public class CharacterStats : MonoBehaviour
     }
 
     // Getters and Setters for the Defense
-    public float getDefense()
+    public int getDefense()
     {
         return defense;
     }
