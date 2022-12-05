@@ -3,30 +3,11 @@ using UnityEngine;
 public class UnitHealth : MonoBehaviour
 {
     //public Unit unite;
-    private int maxHealth;
-    public int currentHealth;
     public GameObject unit;
 
     public HealthBar healthBar;
 
-    //Test CollisionUnit2
-    //public CollisionUnit collisionUnit;
-    //public CollisionUnit2 collisionUnit;
-
-    //public Animator animator;
-
-    private bool isDead = false;
-
-    /*
-    * This Method will apply damage on the unit it collided to
-    */
-    // Start is called before the first frame update
-    void Start()
-    {
-        maxHealth = 100;
-        currentHealth = maxHealth;
-        healthBar.setMaxHealth(maxHealth);
-    }
+    public CharacterStats stats;
 
     // Update is called once per frame
     void Update()
@@ -35,14 +16,14 @@ public class UnitHealth : MonoBehaviour
         //For testing purpose
         if (Input.GetKeyDown(KeyCode.H))
         {
-            if (currentHealth > 0) TakeDamage(20);
+            if (stats.getLife() > 0) TakeDamage(20);
         }
 
 
         //Determine if the unit is dead or not and delete it if it is
-        if (currentHealth <= 0 && !isDead)
+        if (stats.getLife() <= 0 && stats.getAlive())
         {
-            isDead = true;
+            stats.setAlive(false);
             
             Debug.Log("The unit : " + this.tag + " is dead");
             death();
@@ -55,9 +36,9 @@ public class UnitHealth : MonoBehaviour
     //Just the method to make the current unit taking an certain amout of damage 
     public void TakeDamage(int damage)
     {
-
-        currentHealth -= damage;
-        healthBar.SetHealth(currentHealth);
+        int life = stats.getLife();
+        stats.setLife( life -= damage);
+        healthBar.SetHealth(stats.getLife());
     }
 
     public void death()

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
@@ -10,13 +8,13 @@ public class CharacterStats : MonoBehaviour
     /// </summary>
     /// 
 
-    public float attack;
-    public float life;
-    public float maxLife;
+    public int attack;
+    public int life;
+    public int maxLife;
     public float speed;
-    public float defense;
+    public int defense;
     public float attackSpeed;
-    public float range;
+    public int range;
     public bool isAlive = true;
 
 
@@ -28,27 +26,27 @@ public class CharacterStats : MonoBehaviour
 
 
     // Getters and Setters for the Attack
-    public float getAttack()
+    public int getAttack()
     {
         return attack;
     }
-    public void setAttack(float val)
+    public void setAttack(int val)
     {
         attack = val;
     }
 
     // Getters and Setters for the Life
-    public float getLife()
+    public int getLife()
     {
         return life;
     }
-    public void setLife(float val)
+    public void setLife(int val)
     {
         life = val;
     }
 
     // Getters for the MaxLife
-    public float getMaxLife()
+    public int getMaxLife()
     {
         return maxLife;
     }
@@ -64,11 +62,11 @@ public class CharacterStats : MonoBehaviour
     }
 
     // Getters and Setters for the Defense
-    public float getDefense()
+    public int getDefense()
     {
         return defense;
     }
-    public void setDefense(float val)
+    public void setDefense(int val)
     {
         defense = val;
     }
@@ -84,11 +82,11 @@ public class CharacterStats : MonoBehaviour
     }
 
     // Getters and Setters for the Range
-    public float getRange()
+    public int getRange()
     {
         return range;
     }
-    public void setRange(float val)
+    public void setRange(int val)
     {
         range = val;
     }
