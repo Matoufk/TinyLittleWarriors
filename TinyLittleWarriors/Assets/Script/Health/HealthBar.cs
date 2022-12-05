@@ -4,15 +4,15 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     public Image bar;
-    public float maxHealth;
+    public CharacterStats stats;
 
-    public void setMaxHealth(float max)
+    private void Start()
     {
-        maxHealth = max;
+        bar.fillAmount = stats.getMaxLife();
     }
     public void SetHealth(float health)
     {
 
-        bar.fillAmount = health/maxHealth;
+        bar.fillAmount = health/stats.getMaxLife();
     }
 }
