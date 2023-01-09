@@ -12,13 +12,15 @@ public class AgentBehavior : MonoBehaviour
         Idle
     }
     [SerializeField] private AgentFSM state;
-    private seek seekScript;
+    private Seek seekScript;
+    private float nextAttackTime;
     // Start is called before the first frame update
     void Start()
     {
-        seekScript = GetComponent<seek>();
+        seekScript = GetComponent<Seek>();
         state = AgentFSM.Seek;
         target = null;
+        nextAttackTime = -1.0f;
     }
 
     // Update is called once per frame
@@ -27,22 +29,39 @@ public class AgentBehavior : MonoBehaviour
         switch (state)
         {
             case AgentFSM.Seek:
-                if(target == null)
+                if (target == null)
                 {
                     Agent[] enemies = GameObject.FindObjectsOfType<Agent>();
                     GetNearestEnemy(enemies);
-                    seekScript.setTarget(target.transform);
+                    if (target == null) state = AgentFSM.Idle;
+                    else seekScript.setTarget(target.transform);
                 }
-                seekScript.setTarget(target.transform);
-                seekScript.seeking();
+                else
+                {
+                    seekScript.setTarget(target.transform);
+                    seekScript.seeking();
+                }
                 break;
 
             case AgentFSM.Attack:
-                print("ATTAK");
-                int range = (int)GetComponent<CharacterStats>().getRange();
-                if (Vector3.Distance(target.transform.position, transform.position) > range)
+                CharacterStats stats = GetComponent<CharacterStats>();
+                int range = (int)stats.getRange();
+                if (target == null || Vector3.Distance(target.transform.position, transform.position) > range + seekScript.offset)
                 {
                     state = AgentFSM.Seek;
+                }
+                else
+                {
+                    float atkSpeed = 1.0f/stats.getAttackSpeed();
+                    CharacterStats foeStats = target.GetComponent<CharacterStats>();
+                    if(nextAttackTime == -1.0f || Time.time >= nextAttackTime)
+                    {
+                        int dmg = stats.getAttack() - foeStats.getDefense();
+                        if (dmg < 0) dmg = 0;
+                        target.GetComponent<UnitHealth>().TakeDamage(dmg);
+                        print("degats : " + dmg);
+                        nextAttackTime = Time.time + atkSpeed;
+                    }
                 }
                 break;
         }

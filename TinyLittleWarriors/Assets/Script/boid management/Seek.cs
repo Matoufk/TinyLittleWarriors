@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class seek : MonoBehaviour
+public class Seek : MonoBehaviour
 {
     private Vector3 targetPos;
     private int range;
     private float speed;
     private float maxSpeed; //vitesse du groupe
     private CharacterStats stats;
-    [SerializeField] private int offset;
+    public int offset;
 
     void Start()
     {
@@ -37,8 +37,9 @@ public class seek : MonoBehaviour
         if(Vector3.Distance(transform.position, targetPos)<= range + offset)
         {
             realTarget = transform.position;
+            transform.position = Vector3.MoveTowards(transform.position, realTarget, speed * Time.deltaTime);
             GetComponent<AgentBehavior>().setState(AgentBehavior.AgentFSM.Attack);
         }
-        transform.position = Vector3.MoveTowards(transform.position, realTarget, speed * Time.deltaTime);
+        else transform.position = Vector3.MoveTowards(transform.position, realTarget, speed * Time.deltaTime);
     }
 }
