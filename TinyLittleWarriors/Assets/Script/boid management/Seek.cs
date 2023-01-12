@@ -5,6 +5,7 @@ using UnityEngine;
 public class Seek : MonoBehaviour
 {
     private Vector3 targetPos;
+    private Transform target;
     private int range;
     private float speed;
     private float maxSpeed; //vitesse du groupe
@@ -25,21 +26,24 @@ public class Seek : MonoBehaviour
         speed = stats.getSpeed();
     }
 
-    public void setTarget(Transform target)
+    public void setTarget(Transform T)
     {
-        targetPos = target.position;
+        target = T;
+        targetPos = T.position;
     }
 
     public void seeking()
     {
         transform.LookAt(targetPos);
         Vector3 realTarget = targetPos;
-        if(Vector3.Distance(transform.position, targetPos)<= range + offset)
+        if (Vector3.Distance(transform.position, targetPos) <= range + offset)
         {
-            realTarget = transform.position;
-            transform.position = Vector3.MoveTowards(transform.position, realTarget, speed * Time.deltaTime);
             GetComponent<AgentBehavior>().setState(AgentBehavior.AgentFSM.Attack);
         }
-        else transform.position = Vector3.MoveTowards(transform.position, realTarget, speed * Time.deltaTime);
+        else
+        {
+            transform.LookAt(target);
+            transform.position = Vector3.MoveTowards(transform.position, realTarget, speed * Time.deltaTime);
+        }
     }
 }
