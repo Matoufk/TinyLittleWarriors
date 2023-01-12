@@ -22,7 +22,7 @@ public class AgentBehavior : MonoBehaviour
     void Start()
     {
         seekScript = GetComponent<Seek>();
-        state = AgentFSM.Seek;
+        //state = AgentFSM.Seek;
         target = null;
         nextAttackTime = -1.0f;
     }
