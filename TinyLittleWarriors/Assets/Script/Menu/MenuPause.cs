@@ -16,6 +16,8 @@ public class MenuPause : MonoBehaviour
 
     public string sceneToRestartTo = "mathis_scene";
 
+    public string sceneMenu = "MainMenu";
+
 
 
     // Update is called once per frame
@@ -51,6 +53,12 @@ public class MenuPause : MonoBehaviour
     {
         SceneManager.LoadScene(sceneToRestartTo);
         Time.timeScale = 1f;
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene(sceneMenu);
+       
     }
 
     public void QuitGame()

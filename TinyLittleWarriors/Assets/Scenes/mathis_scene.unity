@@ -7631,9 +7631,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1583348849895607654, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
+      propertyPath: m_Text
+      value: Main Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583348849895607654, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727011094651765855, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -218
+      objectReference: {fileID: 0}
+    - target: {fileID: 2108248495722030158, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2108248495722030158, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -100
+      objectReference: {fileID: 0}
     - target: {fileID: 2733101584550165559, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
       propertyPath: m_Name
       value: Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 2733101584550165559, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2951043194659024133, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
       propertyPath: m_Pivot.x
@@ -7718,6 +7742,30 @@ PrefabInstance:
     - target: {fileID: 2951043194659024133, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3130898774913054876, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5545035357534551718, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoToMainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 6855740041683900594, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080996862912348479, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0000038147
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080996862912348479, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8387988901763637301, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
+      propertyPath: sceneMenu
+      value: MainMenu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
