@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class DragAndDrop : MonoBehaviour
 {
+    /// <summary>
+    /// DragAndDrop
+    /// </summary>
     private GameObject selectedObj;
     int armySize = 8;
     bool armyIsHere;
