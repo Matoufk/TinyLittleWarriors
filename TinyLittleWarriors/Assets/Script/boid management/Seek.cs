@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class seek : MonoBehaviour
+public class Seek : MonoBehaviour
 {
     private Vector3 targetPos;
+    private Transform target;
     private int range;
     private float speed;
     private float maxSpeed; //vitesse du groupe
     private CharacterStats stats;
-    [SerializeField] private int offset;
+    public int offset;
 
     void Start()
     {
@@ -25,20 +26,24 @@ public class seek : MonoBehaviour
         speed = stats.getSpeed();
     }
 
-    public void setTarget(Transform target)
+    public void setTarget(Transform T)
     {
-        targetPos = target.position;
+        target = T;
+        targetPos = T.position;
     }
 
     public void seeking()
     {
         transform.LookAt(targetPos);
         Vector3 realTarget = targetPos;
-        if(Vector3.Distance(transform.position, targetPos)<= range + offset)
+        if (Vector3.Distance(transform.position, targetPos) <= range + offset)
         {
-            realTarget = transform.position;
             GetComponent<AgentBehavior>().setState(AgentBehavior.AgentFSM.Attack);
         }
-        transform.position = Vector3.MoveTowards(transform.position, realTarget, speed * Time.deltaTime);
+        else
+        {
+            transform.LookAt(target);
+            transform.position = Vector3.MoveTowards(transform.position, realTarget, speed * Time.deltaTime);
+        }
     }
 }
