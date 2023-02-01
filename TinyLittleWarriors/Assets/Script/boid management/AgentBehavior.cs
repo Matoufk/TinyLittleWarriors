@@ -55,7 +55,7 @@ public class AgentBehavior : MonoBehaviour
             case AgentFSM.Attack:
                 CharacterStats stats = GetComponent<CharacterStats>();
                 int range = (int)stats.getRange();
-                int atk = stats.getAttack();
+                int atk = (int)stats.getAttack();
                 float atkSpeed = 1.0f / stats.getAttackSpeed();
                 if (target == null || Vector3.Distance(target.transform.position, transform.position) > range + seekScript.offset)
                 {
