@@ -7628,6 +7628,10 @@ PrefabInstance:
       propertyPath: sceneMenu
       value: MainMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 8387988901763637301, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
+      propertyPath: sceneToRestartTo
+      value: V0_scene
+      objectReference: {fileID: 0}
     - target: {fileID: 8686603098338116780, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
       propertyPath: m_IsActive
       value: 0
