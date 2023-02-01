@@ -19032,7 +19032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 2
-  enemyBase: {fileID: 1696000516}
+  enemyBase: {fileID: 1270263993}
   viewDistance: 10
 --- !u!114 &2002127651
 MonoBehaviour:
@@ -19073,10 +19073,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1.61
-  m_Height: 5.24
+  m_Radius: 1.6099999
+  m_Height: 3.8907022
   m_Direction: 1
-  m_Center: {x: 0, y: 1.51, z: 3.01}
+  m_Center: {x: 0, y: 1.8582263, z: 3.01}
 --- !u!1001 &2002500185
 PrefabInstance:
   m_ObjectHideFlags: 0
