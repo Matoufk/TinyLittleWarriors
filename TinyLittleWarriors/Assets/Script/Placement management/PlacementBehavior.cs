@@ -14,14 +14,14 @@ public class PlacementBehavior : MonoBehaviour
     GameObject soldier;
     List<GameObject> orphans = new List<GameObject>();
 
-    float norm = .7f;
+    float norm = 4f;
 
     /// <summary>
     /// Placement Grid
     /// </summary>
     // The size of the grid cells
-    static public int numberOfCellInX = 8;
-    static public int numberOfCellInZ = 8;
+    static public int numberOfCellInX = 40;
+    static public int numberOfCellInZ = 15;
 
     public LayerMask layerMask;
     public GameObject board;
@@ -48,7 +48,7 @@ public class PlacementBehavior : MonoBehaviour
         sizeTileX = board.GetComponent<Collider>().bounds.size.x / numberOfCellInX;
         sizeTileZ = board.GetComponent<Collider>().bounds.size.z / numberOfCellInZ;
 
-        posY = board.transform.position.y + board.GetComponent<Collider>().bounds.size.y;
+        posY = board.transform.position.y + board.GetComponent<Collider>().bounds.size.y + 2f;
 
         createBoard();
     }
@@ -74,10 +74,14 @@ public class PlacementBehavior : MonoBehaviour
                     tabTile[cellCoord.Item1,cellCoord.Item2].Item3 = true;
                     selectedObj = hit.collider.gameObject;
                     selectedObj.GetComponent<Rigidbody>().useGravity = false;
+                    selectedObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+                    selectedObj.GetComponent<Collider>().enabled = false;
 
-                    for (int i = 0; i < selectedObj.transform.childCount; i++)
+                    for (int i = 2; i < selectedObj.transform.childCount; i++)
                     {
                         selectedObj.transform.GetChild(i).GetComponent<Rigidbody>().useGravity = false;
+                        selectedObj.transform.GetChild(i).GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+                        selectedObj.transform.GetChild(i).GetComponent<Collider>().enabled = false;
                     }
                     Cursor.visible = false;
                 }
@@ -86,23 +90,27 @@ public class PlacementBehavior : MonoBehaviour
             {
                 
                 // Calculate the position of the center of the grid cell
-                Vector3 cellCenter = new Vector3(tabTile[cellCoord.Item1, cellCoord.Item2].Item1 + sizeTileX / 2, posY, tabTile[cellCoord.Item1, cellCoord.Item2].Item2 + sizeTileZ / 2);
+                Vector3 cellCenter = new Vector3(tabTile[cellCoord.Item1, cellCoord.Item2].Item1 + sizeTileX / 2, posY + 1f, tabTile[cellCoord.Item1, cellCoord.Item2].Item2 + sizeTileZ / 2);
 
                 //Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObj.transform.position).z);
                 //Vector3 worldPos = Camera.main.ScreenToWorldPoint(position);
                 //selectedObj.transform.position = new Vector3(worldPos.x, 2f, worldPos.z);
                 selectedObj.transform.position = cellCenter;
                 selectedObj.GetComponent<Rigidbody>().useGravity = true;
+                selectedObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+                selectedObj.GetComponent<Collider>().enabled = true;
                 tabTile[cellCoord.Item1, cellCoord.Item2].Item3 = false;
 
                 
-                if (!(selectedObj.transform.childCount > 0))
+                if (!(selectedObj.transform.childCount > 2))
                 {  
                     CreateArmy(armySize);
                 }
-                for(int i = 0; i < selectedObj.transform.childCount; i++)
+                for(int i = 2; i < selectedObj.transform.childCount; i++)
                 {
                     selectedObj.transform.GetChild(i).GetComponent<Rigidbody>().useGravity = true;
+                    selectedObj.transform.GetChild(i).GetComponent<Collider>().enabled = true;
+                    selectedObj.transform.GetChild(i).GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
                 }
 
                 selectedObj = null;
@@ -237,6 +245,7 @@ public class PlacementBehavior : MonoBehaviour
 
             GameObject duplicate = Instantiate(selectedObj, dupPos, Quaternion.identity);
             duplicate.gameObject.tag = "Untagged";
+            duplicate.GetComponent<CharacterStats>().setLife(Mathf.RoundToInt(selectedObj.GetComponent<CharacterStats>().getMaxLife() * 0.7f));
             orphans.Add(duplicate);
             duplicate.name = "Soldier" + (i);
 
