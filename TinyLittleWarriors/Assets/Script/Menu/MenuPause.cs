@@ -14,7 +14,7 @@ public class MenuPause : MonoBehaviour
     public bool win = false;
     public bool loose = false;
 
-    public string sceneToRestartTo = "mathis_scene";
+    public string sceneToRestartTo = "V0_scene";
 
     public string sceneMenu = "MainMenu";
 
