@@ -26,6 +26,9 @@ public class PlacementBehavior : MonoBehaviour
     public LayerMask layerMask;
     public GameObject board;
 
+    public bool battle = false;
+    public List<GameObject> army = new List<GameObject>();
+
     // Tiles
     (float, float, bool)[,] tabTile = new (float, float, bool)[numberOfCellInX, numberOfCellInZ];
 
@@ -56,6 +59,25 @@ public class PlacementBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Army creation
+        if (battle == true)
+        {
+            foreach (GameObject e in army)
+            {
+                CreateArmy(armySize, e);
+                e.tag = "Untagged";
+                e.GetComponent<AgentBehavior>().setState(AgentBehavior.AgentFSM.Seek);
+                
+            }
+
+            foreach(GameObject i in orphans)
+            {
+                i.GetComponent<AgentBehavior>().setState(AgentBehavior.AgentFSM.Seek);
+            }
+            Destroy(this);
+        }
+        //battle = false;
+
         RaycastHit hitGround = CastRayGrid();
         (int, int) cellCoord = getCellCoord(hitGround);
         if (Input.GetMouseButtonDown(0))
@@ -70,12 +92,17 @@ public class PlacementBehavior : MonoBehaviour
                     {
                         return;
                     }
-
+                    
                     tabTile[cellCoord.Item1,cellCoord.Item2].Item3 = true;
                     selectedObj = hit.collider.gameObject;
                     selectedObj.GetComponent<Rigidbody>().useGravity = false;
                     selectedObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
                     selectedObj.GetComponent<Collider>().enabled = false;
+
+                    if (army.Contains(selectedObj) == false)
+                    {
+                        army.Add(selectedObj);
+                    }
 
                     for (int i = 2; i < selectedObj.transform.childCount; i++)
                     {
@@ -102,10 +129,6 @@ public class PlacementBehavior : MonoBehaviour
                 tabTile[cellCoord.Item1, cellCoord.Item2].Item3 = false;
 
                 
-                if (!(selectedObj.transform.childCount > 2))
-                {  
-                    CreateArmy(armySize);
-                }
                 for(int i = 2; i < selectedObj.transform.childCount; i++)
                 {
                     selectedObj.transform.GetChild(i).GetComponent<Rigidbody>().useGravity = true;
@@ -233,30 +256,26 @@ public class PlacementBehavior : MonoBehaviour
     /// Duplicate the selected object armysize time around him
     /// </summary>
     /// <param name="armysize"> the size of the army</param>
-    public void CreateArmy(int armysize)
+    public void CreateArmy(int armysize,GameObject selectedObj_)
     {
+        
+            for (int i = 0; i < armysize; i++)
+            {
+                float angle = ((2 * Mathf.PI) / armysize) * i;
+                float normX = norm * Mathf.Cos(angle);
+                float normZ = norm * Mathf.Sin(angle);
+                Vector3 dupPos = new Vector3(selectedObj_.transform.position.x + normX, selectedObj_.transform.position.y, selectedObj_.transform.position.z + normZ);
 
-        for (int i = 0; i < armysize; i++)
-        {
-            float angle = ((2 * Mathf.PI) / armysize) * i;
-            float normX = norm * Mathf.Cos(angle);
-            float normZ = norm * Mathf.Sin(angle);
-            Vector3 dupPos = new Vector3(selectedObj.transform.position.x + normX, selectedObj.transform.position.y, selectedObj.transform.position.z + normZ);
+                GameObject duplicate = Instantiate(selectedObj_, dupPos, Quaternion.identity);
+                duplicate.gameObject.tag = "Untagged";
+                duplicate.GetComponent<CharacterStats>().setLife(Mathf.RoundToInt(selectedObj_.GetComponent<CharacterStats>().getMaxLife() * 0.7f));
+                orphans.Add(duplicate);
+                duplicate.name = "Soldier" + (i);
 
-            GameObject duplicate = Instantiate(selectedObj, dupPos, Quaternion.identity);
-            duplicate.gameObject.tag = "Untagged";
-            duplicate.GetComponent<CharacterStats>().setLife(Mathf.RoundToInt(selectedObj.GetComponent<CharacterStats>().getMaxLife() * 0.7f));
-            orphans.Add(duplicate);
-            duplicate.name = "Soldier" + (i);
+                duplicate.transform.localScale -= new Vector3(0.3f, 0.3f, 0.3f);
 
-            duplicate.transform.localScale -= new Vector3(0.3f, 0.3f, 0.3f);
-
-            Debug.Log(duplicate.name + " : " + selectedObj.name);
-        }
-        foreach (GameObject orphan in orphans)
-        {
-            orphan.transform.SetParent(selectedObj.transform);
-        }
-        orphans.Clear();
+                Debug.Log(duplicate.name + " : " + selectedObj_.name);
+            }
+        
     }
 }
