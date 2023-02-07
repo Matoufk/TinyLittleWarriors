@@ -2932,6 +2932,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   board: {fileID: 1986309132}
+  battle: 0
+  army: []
 --- !u!1001 &327200301
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4716,6 +4718,11 @@ Transform:
   m_Father: {fileID: 961935749}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 16.23, z: 0}
+--- !u!20 &615364871 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8466877708735797003, guid: 736828d4feb727f448df28d642cb365a, type: 3}
+  m_PrefabInstance: {fileID: 8466877708854817400}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &615424363
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18975,6 +18982,10 @@ PrefabInstance:
       propertyPath: stats
       value: 
       objectReference: {fileID: 2002127647}
+    - target: {fileID: 6854385360553660932, guid: eab72d3e9514663499d2f5766b1fafe1, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 615364871}
     - target: {fileID: 6969174303961474189, guid: eab72d3e9514663499d2f5766b1fafe1, type: 3}
       propertyPath: m_Name
       value: Grenouille
