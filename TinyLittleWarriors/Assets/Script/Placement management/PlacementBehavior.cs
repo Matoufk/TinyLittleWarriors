@@ -65,7 +65,7 @@ public class PlacementBehavior : MonoBehaviour
             foreach (GameObject e in army)
             {
                 CreateArmy(armySize, e);
-                e.tag = "Untagged";
+                e.tag = "Ally";
                 e.GetComponent<AgentBehavior>().setState(AgentBehavior.AgentFSM.Seek);
                 
             }
@@ -267,7 +267,7 @@ public class PlacementBehavior : MonoBehaviour
                 Vector3 dupPos = new Vector3(selectedObj_.transform.position.x + normX, selectedObj_.transform.position.y, selectedObj_.transform.position.z + normZ);
 
                 GameObject duplicate = Instantiate(selectedObj_, dupPos, Quaternion.identity);
-                duplicate.gameObject.tag = "Untagged";
+                duplicate.gameObject.tag = "Ally";
                 duplicate.GetComponent<CharacterStats>().setLife(Mathf.RoundToInt(selectedObj_.GetComponent<CharacterStats>().getMaxLife() * 0.7f));
                 orphans.Add(duplicate);
                 duplicate.name = "Soldier" + (i);

@@ -83,7 +83,7 @@ public class AgentBehavior : MonoBehaviour
                     }
                 }
                 int range = (int)stats.getRange();
-                int atk = stats.getAttack();
+                int atk = (int)stats.getAttack();
                 float atkSpeed = 1.0f / stats.getAttackSpeed();
            
                 if (target == null || target_is_dead || (Vector3.Distance(target.transform.position, transform.position) > range + seekScript.offset))
