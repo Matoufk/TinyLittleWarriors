@@ -8,13 +8,13 @@ public class CharacterStats : MonoBehaviour
     /// </summary>
     /// 
 
-    public int attack;
+    public float attack;
     public int life;
     public int maxLife;
     public float speed;
-    public int defense;
+    public float defense;
     public float attackSpeed;
-    public int range;
+    public float range;
     public bool isAlive = true;
 
 
@@ -26,11 +26,11 @@ public class CharacterStats : MonoBehaviour
 
 
     // Getters and Setters for the Attack
-    public int getAttack()
+    public float getAttack()
     {
         return attack;
     }
-    public void setAttack(int val)
+    public void setAttack(float val)
     {
         attack = val;
     }
@@ -62,11 +62,11 @@ public class CharacterStats : MonoBehaviour
     }
 
     // Getters and Setters for the Defense
-    public int getDefense()
+    public float getDefense()
     {
         return defense;
     }
-    public void setDefense(int val)
+    public void setDefense(float val)
     {
         defense = val;
     }
@@ -82,11 +82,11 @@ public class CharacterStats : MonoBehaviour
     }
 
     // Getters and Setters for the Range
-    public int getRange()
+    public float getRange()
     {
         return range;
     }
-    public void setRange(int val)
+    public void setRange(float val)
     {
         range = val;
     }

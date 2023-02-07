@@ -6,12 +6,19 @@ using UnityEngine;
 public class AgentBehavior : MonoBehaviour
 {
     private Agent target;
+    public Animator animator;
+
+    public bool moving = false;
+    public bool attacking = false;
+
+    bool target_is_dead = false;
+
     public enum AgentFSM
     {
         Attack,
         Seek,
         Wander,
-        Idle
+        Idle,
     }
     [SerializeField] private AgentFSM state;
     [SerializeField] private Transform enemyBase;
@@ -37,7 +44,13 @@ public class AgentBehavior : MonoBehaviour
                 {
                     List<Agent> enemies = new List<Agent>();
                     int enemiesSeen = EnnemiesInView(enemies);
-                    if (enemiesSeen == 0) state = AgentFSM.Wander;
+                    if (enemiesSeen == 0)
+                    {
+                        state = AgentFSM.Wander;
+                        moving = true;
+                        animator.SetBool("moving", moving);
+                    }
+
                     else
                     {
                         GetNearestEnemy(enemies);
@@ -50,16 +63,36 @@ public class AgentBehavior : MonoBehaviour
                     seekScript.setTarget(target.transform);
                     seekScript.seeking();
                 }
+
+
                 break;
 
             case AgentFSM.Attack:
+                moving = false;
+                attacking = true;
+                animator.SetBool("attacking", attacking);
+                animator.SetBool("moving", false);
                 CharacterStats stats = GetComponent<CharacterStats>();
+                if (target != null) { 
+                    CharacterStats targetStats = target.GetComponent<CharacterStats>();
+                    if(targetStats.getLife() < 0)
+                    {
+                        target_is_dead = true;
+                        target.GetComponent<AgentBehavior>().enabled = false;
+                        Destroy(target.GetComponent<Rigidbody>());
+                    }
+                }
                 int range = (int)stats.getRange();
-                int atk = stats.getAttack();
+                int atk = (int)stats.getAttack();
                 float atkSpeed = 1.0f / stats.getAttackSpeed();
-                if (target == null || Vector3.Distance(target.transform.position, transform.position) > range + seekScript.offset)
+           
+                if (target == null || target_is_dead || (Vector3.Distance(target.transform.position, transform.position) > range + seekScript.offset))
                 {
                     state = AgentFSM.Seek;
+                    moving = true;
+                    animator.SetBool("moving", moving);
+                    animator.SetBool("attacking", false);
+
                 }
                 else
                 {
@@ -73,6 +106,7 @@ public class AgentBehavior : MonoBehaviour
                         print("degats : " + dmg);
                     }
                 }
+
                 break;
 
             case AgentFSM.Wander:
@@ -81,8 +115,17 @@ public class AgentBehavior : MonoBehaviour
                 List<Agent> inSight = new List<Agent>();
                 int seen = EnnemiesInView(inSight);
                 if (seen != 0) state = AgentFSM.Seek;
+
+                moving = true;
+                animator.SetBool("moving", moving);
+                animator.SetBool("attacking", false);
+
                 break;
+
+
+
         }
+        
     }
 
     int EnnemiesInView(List<Agent> enemiesInView)
