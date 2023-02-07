@@ -9,14 +9,10 @@ public class UnitHealth : MonoBehaviour
 
     public CharacterStats stats;
 
-    public Animator animator;
-
-    public bool dead = false;
-
     // Update is called once per frame
     void Update()
     {
-
+        
         //For testing purpose
         if (Input.GetKeyDown(KeyCode.H))
         {
@@ -28,17 +24,10 @@ public class UnitHealth : MonoBehaviour
         if (stats.getLife() <= 0 && stats.getAlive())
         {
             stats.setAlive(false);
-
-            Debug.Log("The unit : " + this.tag + " is dead");
-            dead = true;
-            if (animator != null)
-            {
-                animator.SetBool("dead", dead);
-                GetComponent<AgentBehavior>().enabled = false;
-            }
             
-            Invoke("death", 1.0f);
-
+            Debug.Log("The unit : " + this.tag + " is dead");
+            death();
+ 
         }
 
 
@@ -48,16 +37,14 @@ public class UnitHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         int life = stats.getLife();
-        stats.setLife(life -= damage);
+        stats.setLife( life -= damage);
         healthBar.SetHealth(stats.getLife());
     }
 
     public void death()
     {
-        Destroy(unit.gameObject);
+        Destroy(unit);
     }
-
-
 
 
 
