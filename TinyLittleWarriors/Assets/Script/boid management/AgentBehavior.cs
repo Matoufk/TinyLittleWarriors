@@ -18,6 +18,9 @@ public class AgentBehavior : MonoBehaviour
     [SerializeField] private double viewDistance = 10.0;
     private Seek seekScript;
     private float nextAttackTime;
+
+    public float test;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +50,8 @@ public class AgentBehavior : MonoBehaviour
                 }
                 else
                 {
-                    seekScript.setTarget(target.transform);
+                    Transform seekDest = checkForObstacle(target.transform);
+                    seekScript.setTarget(seekDest.transform);
                     seekScript.seeking();
                 }
                 break;
@@ -76,8 +80,10 @@ public class AgentBehavior : MonoBehaviour
                 break;
 
             case AgentFSM.Wander:
-                transform.LookAt(enemyBase);
-                transform.position = Vector3.MoveTowards(transform.position, enemyBase.position, GetComponent<CharacterStats>().getSpeed() * Time.deltaTime);
+                Transform wanderDest;
+                wanderDest = checkForObstacle(enemyBase);
+                transform.LookAt(wanderDest);
+                transform.position = Vector3.MoveTowards(transform.position, wanderDest.position, GetComponent<CharacterStats>().getSpeed() * Time.deltaTime);
                 List<Agent> inSight = new List<Agent>();
                 int seen = EnnemiesInView(inSight);
                 if (seen != 0) state = AgentFSM.Seek;
@@ -124,5 +130,20 @@ public class AgentBehavior : MonoBehaviour
     public void setState(AgentFSM etat)
     {
         state = etat;
+    }
+
+    Transform checkForObstacle(Transform pose)
+    {
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hitData;
+        Physics.Raycast(ray, out hitData);
+        Transform dest = pose;
+        test = hitData.distance;
+        if(hitData.distance <= 5.0)
+        {
+            dest.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
+            transform.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
+        }
+        return(dest);
     }
 }
