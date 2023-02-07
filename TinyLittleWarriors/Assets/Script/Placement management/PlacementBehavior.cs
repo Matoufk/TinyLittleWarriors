@@ -273,8 +273,6 @@ public class PlacementBehavior : MonoBehaviour
                 duplicate.name = "Soldier" + (i);
 
                 duplicate.transform.localScale -= new Vector3(0.3f, 0.3f, 0.3f);
-
-                Debug.Log(duplicate.name + " : " + selectedObj_.name);
             }
         
     }
