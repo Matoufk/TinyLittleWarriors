@@ -12,6 +12,7 @@ public class Seek : MonoBehaviour
     private CharacterStats stats;
     public int offset;
 
+
     void Start()
     {
         stats = GetComponent<CharacterStats>();
