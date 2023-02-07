@@ -37,7 +37,7 @@ public class UnitHealth : MonoBehaviour
                 GetComponent<AgentBehavior>().enabled = false;
             }
             
-            Invoke("death", 2.0f);
+            Invoke("death", 1.0f);
 
         }
 
