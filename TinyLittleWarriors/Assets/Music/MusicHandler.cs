@@ -20,7 +20,7 @@ public class MusicHandler : MonoBehaviour
     void Update()
     {
 
-        if(((GameObject.Find("Surroundings")).GetComponent<PlacementBehavior>()).battle != battle_music)
+        if(((GameObject.Find("Surroundings")).GetComponent<PlacementBehavior>()) != null && ((GameObject.Find("Surroundings")).GetComponent<PlacementBehavior>()).battle != battle_music)
         {
             battle_music = !battle_music;
 
