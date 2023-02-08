@@ -17,24 +17,25 @@ public class winLooseGestion : MonoBehaviour
     GameObject[] Ennemy;
     // Update is called once per frame
     void Update()
-    {
+    {   
+        if(battle) time += Time.deltaTime;
+
         if (placement.battle && battle == false)
         {
             battle = true;
             Time.timeScale = 1f;
-            time += Time.deltaTime;
+            
             Ennemy = GameObject.FindGameObjectsWithTag("Ennemy");
             foreach(GameObject ennemy in Ennemy)
             {
                 ennemy.GetComponent<AgentBehavior>().setState(AgentBehavior.AgentFSM.Wander);
             }
         }
-        if (battle && time > 5.0)
+        if (battle && time > 5.0f)
         {
             Ally = GameObject.FindGameObjectsWithTag("Ally");
             
             Ennemy = GameObject.FindGameObjectsWithTag("Ennemy");
-            
 
             if (Ally.Length < 1 )
             {
