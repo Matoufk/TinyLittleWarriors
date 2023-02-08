@@ -28,6 +28,7 @@ public class winLooseGestion : MonoBehaviour
             {
                 ennemy.GetComponent<AgentBehavior>().setState(AgentBehavior.AgentFSM.Wander);
             }
+            placement.battle = false;
         }
         if (battle && time > 5.0)
         {
