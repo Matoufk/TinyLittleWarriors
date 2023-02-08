@@ -18,7 +18,7 @@ public class winLooseGestion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (placement.battle)
+        if (placement.battle && battle == false)
         {
             battle = true;
             Time.timeScale = 1f;
@@ -28,7 +28,6 @@ public class winLooseGestion : MonoBehaviour
             {
                 ennemy.GetComponent<AgentBehavior>().setState(AgentBehavior.AgentFSM.Wander);
             }
-            placement.battle = false;
         }
         if (battle && time > 5.0)
         {
