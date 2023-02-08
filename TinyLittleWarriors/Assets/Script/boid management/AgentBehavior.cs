@@ -25,6 +25,8 @@ public class AgentBehavior : MonoBehaviour
     [SerializeField] private double viewDistance = 10.0;
     private Seek seekScript;
     private float nextAttackTime;
+    private Rigidbody m_Rigidbody;
+    private CharacterStats stats;
 
     public float test;
 
@@ -35,11 +37,14 @@ public class AgentBehavior : MonoBehaviour
         //state = AgentFSM.Seek;
         target = null;
         nextAttackTime = -1.0f;
+        m_Rigidbody = GetComponent<Rigidbody>();
+        stats = GetComponent<CharacterStats>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        stats = GetComponent<CharacterStats>();
         switch (state)
         {
             case AgentFSM.Seek:
@@ -76,7 +81,7 @@ public class AgentBehavior : MonoBehaviour
                 attacking = true;
                 animator.SetBool("attacking", attacking);
                 animator.SetBool("moving", false);
-                CharacterStats stats = GetComponent<CharacterStats>();
+
                 if (target != null) { 
                     CharacterStats targetStats = target.GetComponent<CharacterStats>();
                     if(targetStats.getLife() < 0)
@@ -199,8 +204,7 @@ public class AgentBehavior : MonoBehaviour
         test = hitData.distance;
         if(hitData.distance <= 5.0)
         {
-            dest.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
-            transform.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
+            m_Rigidbody.AddForce(transform.right * stats.getSpeed());
         }
         return(dest);
     }
