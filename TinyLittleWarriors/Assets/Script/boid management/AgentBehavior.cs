@@ -86,8 +86,9 @@ public class AgentBehavior : MonoBehaviour
                 int atk = (int)stats.getAttack();
                 float atkSpeed = 1.0f / stats.getAttackSpeed();
            
-                if (target == null || target_is_dead || (Vector3.Distance(target.transform.position, transform.position) > range + seekScript.offset))
+                if (target_is_dead || (Vector3.Distance(target.transform.position, transform.position) > range + seekScript.offset))
                 {
+                   
                     state = AgentFSM.Seek;
                     moving = true;
                     animator.SetBool("moving", moving);
@@ -131,6 +132,7 @@ public class AgentBehavior : MonoBehaviour
     int EnnemiesInView(List<Agent> enemiesInView)
     {
         Agent[] enemies = FindObjectsOfType<Agent>();
+        target_is_dead = false;
         int nbViewed = 0;
         foreach(Agent e in enemies)
         {
