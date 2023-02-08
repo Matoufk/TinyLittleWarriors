@@ -23,6 +23,11 @@ public class winLooseGestion : MonoBehaviour
             battle = true;
             Time.timeScale = 1f;
             time += Time.deltaTime;
+            Ennemy = GameObject.FindGameObjectsWithTag("Ennemy");
+            foreach(GameObject ennemy in Ennemy)
+            {
+                ennemy.GetComponent<AgentBehavior>().setState(AgentBehavior.AgentFSM.Wander);
+            }
         }
         if (battle && time > 5.0)
         {
