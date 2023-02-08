@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AgentBehavior : MonoBehaviour
 {
-    private Agent target;
+    public Agent target;
     public Animator animator;
 
     public bool moving = false;
