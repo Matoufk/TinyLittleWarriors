@@ -9395,6 +9395,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Drag
       objectReference: {fileID: 0}
+    - target: {fileID: 6091553304187294699, guid: c14631bb07c3e504ba0912a0084a93b7, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6436215941365123881, guid: c14631bb07c3e504ba0912a0084a93b7, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -17902,7 +17906,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8648152856181694548, guid: fa046501d9c1bae478d57cf1b6fd89fd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.46
+      value: 9.33
       objectReference: {fileID: 0}
     - target: {fileID: 8648152856181694548, guid: fa046501d9c1bae478d57cf1b6fd89fd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -18263,6 +18267,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Ennemy
       objectReference: {fileID: 0}
+    - target: {fileID: 9218034806751257059, guid: b29737626113d0b41bdb5ab5676b7809, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 967477667}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b29737626113d0b41bdb5ab5676b7809, type: 3}
 --- !u!1001 &1842982437
