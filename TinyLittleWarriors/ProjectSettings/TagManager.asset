@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Drag
   - Ally
+  - Ennemy
   layers:
   - Default
   - TransparentFX

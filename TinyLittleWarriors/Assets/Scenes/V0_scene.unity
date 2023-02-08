@@ -6043,7 +6043,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8387988901763637301, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
   m_PrefabInstance: {fileID: 869859088}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 869859089}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: abe2bb44e85c6bc488c47f666e393786, type: 3}
@@ -7658,6 +7658,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
+--- !u!1 &869859089 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2733101584550165559, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
+  m_PrefabInstance: {fileID: 869859088}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &869859090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869859089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b56ac96dff3a12c4c8478c291d79509e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placement: {fileID: 325006434}
+  battle: 0
+  winScreen: {fileID: 869859092}
+  looseScreen: {fileID: 869859091}
+--- !u!1 &869859091 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8686603098338116780, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
+  m_PrefabInstance: {fileID: 869859088}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &869859092 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3952365738660278387, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
+  m_PrefabInstance: {fileID: 869859088}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &872679212
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8781,6 +8812,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
+--- !u!20 &967477667 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8466877708735797003, guid: 736828d4feb727f448df28d642cb365a, type: 3}
+  m_PrefabInstance: {fileID: 8466877708854817400}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &969668934
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9210,6 +9246,10 @@ PrefabInstance:
       propertyPath: enemyBase
       value: 
       objectReference: {fileID: 371395993}
+    - target: {fileID: 6900178563174009167, guid: c14631bb07c3e504ba0912a0084a93b7, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 967477667}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c14631bb07c3e504ba0912a0084a93b7, type: 3}
 --- !u!1001 &987544767
