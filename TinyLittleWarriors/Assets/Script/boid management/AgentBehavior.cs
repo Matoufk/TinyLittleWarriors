@@ -63,8 +63,8 @@ public class AgentBehavior : MonoBehaviour
                 }
                 else
                 {
-                    Transform seekDest = checkForObstacle(target.transform);
-                    seekScript.setTarget(seekDest.transform);
+                    //Transform seekDest = checkForObstacle(target.transform);
+                    seekScript.setTarget(target.transform);
                     seekScript.seeking();
                 }
 
@@ -114,10 +114,10 @@ public class AgentBehavior : MonoBehaviour
                 break;
 
             case AgentFSM.Wander:
-                Transform wanderDest;
-                wanderDest = checkForObstacle(enemyBase);
-                transform.LookAt(wanderDest);
-                transform.position = Vector3.MoveTowards(transform.position, wanderDest.position, GetComponent<CharacterStats>().getSpeed() * Time.deltaTime);
+                //Transform wanderDest;
+                //wanderDest = checkForObstacle(enemyBase);
+                transform.LookAt(enemyBase);
+                transform.position = Vector3.MoveTowards(transform.position, enemyBase.position, GetComponent<CharacterStats>().getSpeed() * Time.deltaTime);
                 List<Agent> inSight = new List<Agent>();
                 int seen = EnnemiesInView(inSight);
                 if (seen != 0) state = AgentFSM.Seek;
@@ -136,16 +136,31 @@ public class AgentBehavior : MonoBehaviour
 
     int EnnemiesInView(List<Agent> enemiesInView)
     {
+        target_is_dead = false;
         Agent[] enemies = FindObjectsOfType<Agent>();
         int nbViewed = 0;
         foreach(Agent e in enemies)
         {
-            if (e.getFaction() == Agent.Faction.Enemy)
+            if (gameObject.GetComponent<Agent>().getFaction() == Agent.Faction.Ally)
             {
-                if (Vector3.Distance(transform.position, e.transform.position) <= viewDistance)
+                if (e.getFaction() == Agent.Faction.Enemy)
                 {
-                    enemiesInView.Add(e);
-                    nbViewed += 1;
+                    if (Vector3.Distance(transform.position, e.transform.position) <= viewDistance)
+                    {
+                        enemiesInView.Add(e);
+                        nbViewed += 1;
+                    }
+                }
+            }
+            else
+            {
+                if (e.getFaction() == Agent.Faction.Ally)
+                {
+                    if (Vector3.Distance(transform.position, e.transform.position) <= viewDistance)
+                    {
+                        enemiesInView.Add(e);
+                        nbViewed += 1;
+                    }
                 }
             }
         }
