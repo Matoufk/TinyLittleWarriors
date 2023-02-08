@@ -21,6 +21,7 @@ public class winLooseGestion : MonoBehaviour
         if (placement.battle)
         {
             battle = true;
+            Time.timeScale = 1f;
             time += Time.deltaTime;
         }
         if (battle && time > 5.0)
@@ -33,10 +34,12 @@ public class winLooseGestion : MonoBehaviour
             if (Ally.Length < 1 )
             {
                 looseScreen.SetActive(true);
+                Time.timeScale = 0;
 
             } else if(Ennemy.Length <1)
             {
                 winScreen.SetActive(true);
+                Time.timeScale = 0;
             }
         }
     }
