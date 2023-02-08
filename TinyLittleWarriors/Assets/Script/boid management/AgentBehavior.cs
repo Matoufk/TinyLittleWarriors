@@ -45,6 +45,11 @@ public class AgentBehavior : MonoBehaviour
     void Update()
     {
         stats = GetComponent<CharacterStats>();
+        if (Time.time % 3 == 0)
+        {
+            m_Rigidbody.velocity = Vector3.zero;
+            m_Rigidbody.angularVelocity = Vector3.zero;
+        }
         switch (state)
         {
             case AgentFSM.Seek:
@@ -68,8 +73,8 @@ public class AgentBehavior : MonoBehaviour
                 }
                 else
                 {
-                    //Transform seekDest = checkForObstacle(target.transform);
                     seekScript.setTarget(target.transform);
+                    checkForObstacle();
                     seekScript.seeking();
                 }
 
@@ -109,7 +114,7 @@ public class AgentBehavior : MonoBehaviour
                     if(nextAttackTime == -1.0f || Time.time >= nextAttackTime)
                     {
                         double dmg = Math.Floor(atk * (1 - (foeStats.getDefense()/100.0f)));
-                        if (dmg < 0) dmg = 0;
+                        if (dmg <= 0) dmg = 1;
                         target.GetComponent<UnitHealth>().TakeDamage((int)dmg);
                         nextAttackTime = Time.time + atkSpeed;
                         print("degats : " + dmg);
@@ -119,9 +124,8 @@ public class AgentBehavior : MonoBehaviour
                 break;
 
             case AgentFSM.Wander:
-                //Transform wanderDest;
-                //wanderDest = checkForObstacle(enemyBase);
                 transform.LookAt(enemyBase);
+                checkForObstacle();
                 transform.position = Vector3.MoveTowards(transform.position, enemyBase.position, GetComponent<CharacterStats>().getSpeed() * Time.deltaTime);
                 List<Agent> inSight = new List<Agent>();
                 int seen = EnnemiesInView(inSight);
@@ -195,17 +199,24 @@ public class AgentBehavior : MonoBehaviour
         state = etat;
     }
 
-    Transform checkForObstacle(Transform pose)
+    void checkForObstacle()
     {
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hitData;
         Physics.Raycast(ray, out hitData);
-        Transform dest = pose;
-        test = hitData.distance;
-        if(hitData.distance <= 5.0)
+        Vector3 hitPose = hitData.barycentricCoordinate;
+        float dir = Vector3.Dot(hitPose, transform.right);
+        test = dir;
+        if(hitData.distance <= 3.0)
         {
-            m_Rigidbody.AddForce(transform.right * stats.getSpeed());
+            if (dir >= 0)
+            {
+                m_Rigidbody.AddForce(transform.right * 1.2f);
+            }
+            else
+            {
+                m_Rigidbody.AddForce(-transform.right * 1.2f);
+            }
         }
-        return(dest);
     }
 }
