@@ -204,7 +204,7 @@ public class AgentBehavior : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hitData;
         Physics.Raycast(ray, out hitData);
-        Vector3 hitPose = hitData.barycentricCoordinate;
+        Vector3 hitPose = hitData.collider.ClosestPoint(transform.position);
         float dir = Vector3.Dot(hitPose, transform.right);
         test = dir;
         if(hitData.distance <= 3.0)
