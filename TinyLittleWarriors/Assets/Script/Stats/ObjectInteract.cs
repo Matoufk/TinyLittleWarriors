@@ -6,6 +6,7 @@ public class ObjectInteract : MonoBehaviour, IPointerClickHandler
 
     public bool clicked = false;
     private bool appliedAmelio = false;
+    // private PlacementBehavior pb;
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -37,7 +38,12 @@ public class ObjectInteract : MonoBehaviour, IPointerClickHandler
             {
                 Amelioration.applyDefenseBoostGlobal();
             }
-            appliedAmelio = true;
+            if (this.name == "battle")
+            {
+                ((GameObject.Find("Surroundings")).GetComponent<PlacementBehavior>()).battle = true;
+                gameObject.SetActive(false);
+            }
+        appliedAmelio = true;
         
     }
 
@@ -56,7 +62,7 @@ public class ObjectInteract : MonoBehaviour, IPointerClickHandler
             {
                 Amelioration.applyDefenseBoostGlobal(0.5f);
             }
-            appliedAmelio = true;
+        appliedAmelio = true;
         
     }
 }
