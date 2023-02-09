@@ -1560,7 +1560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa2cd535395070c4ca36135f89acc49e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: V0_scene
+  levelToLoad: V0_2_scene
   settings: {fileID: 1709812640}
 --- !u!1 &820046208
 GameObject:
