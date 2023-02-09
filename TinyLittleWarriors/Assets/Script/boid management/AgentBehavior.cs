@@ -25,6 +25,8 @@ public class AgentBehavior : MonoBehaviour
     [SerializeField] private double viewDistance = 10.0;
     private Seek seekScript;
     private float nextAttackTime;
+    private Rigidbody m_Rigidbody;
+    private CharacterStats stats;
 
     public float test;
 
@@ -35,11 +37,19 @@ public class AgentBehavior : MonoBehaviour
         //state = AgentFSM.Seek;
         target = null;
         nextAttackTime = -1.0f;
+        m_Rigidbody = GetComponent<Rigidbody>();
+        stats = GetComponent<CharacterStats>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        stats = GetComponent<CharacterStats>();
+        if (Time.time % 3 == 0)
+        {
+            m_Rigidbody.velocity = Vector3.zero;
+            m_Rigidbody.angularVelocity = Vector3.zero;
+        }
         switch (state)
         {
             case AgentFSM.Seek:
@@ -63,8 +73,8 @@ public class AgentBehavior : MonoBehaviour
                 }
                 else
                 {
-                    //Transform seekDest = checkForObstacle(target.transform);
                     seekScript.setTarget(target.transform);
+                    checkForObstacle();
                     seekScript.seeking();
                 }
 
@@ -76,7 +86,7 @@ public class AgentBehavior : MonoBehaviour
                 attacking = true;
                 animator.SetBool("attacking", attacking);
                 animator.SetBool("moving", false);
-                CharacterStats stats = GetComponent<CharacterStats>();
+
                 if (target != null) { 
                     CharacterStats targetStats = target.GetComponent<CharacterStats>();
                     if(targetStats.getLife() < 0)
@@ -105,7 +115,7 @@ public class AgentBehavior : MonoBehaviour
                     if(nextAttackTime == -1.0f || Time.time >= nextAttackTime)
                     {
                         double dmg = Math.Floor(atk * (1 - (foeStats.getDefense()/100.0f)));
-                        if (dmg < 0) dmg = 0;
+                        if (dmg <= 0) dmg = 1;
                         target.GetComponent<UnitHealth>().TakeDamage((int)dmg);
                         nextAttackTime = Time.time + atkSpeed;
                         print("degats : " + dmg);
@@ -115,9 +125,8 @@ public class AgentBehavior : MonoBehaviour
                 break;
 
             case AgentFSM.Wander:
-                //Transform wanderDest;
-                //wanderDest = checkForObstacle(enemyBase);
                 transform.LookAt(enemyBase);
+                checkForObstacle();
                 transform.position = Vector3.MoveTowards(transform.position, enemyBase.position, GetComponent<CharacterStats>().getSpeed() * Time.deltaTime);
                 List<Agent> inSight = new List<Agent>();
                 int seen = EnnemiesInView(inSight);
@@ -192,18 +201,24 @@ public class AgentBehavior : MonoBehaviour
         state = etat;
     }
 
-    Transform checkForObstacle(Transform pose)
+    void checkForObstacle()
     {
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hitData;
         Physics.Raycast(ray, out hitData);
-        Transform dest = pose;
-        test = hitData.distance;
-        if(hitData.distance <= 5.0)
+        Vector3 hitPose = hitData.collider.ClosestPoint(transform.position);
+        float dir = Vector3.Dot(hitPose, transform.right);
+        test = dir;
+        if(hitData.distance <= 3.0)
         {
-            dest.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
-            transform.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
+            if (dir >= 0)
+            {
+                m_Rigidbody.AddForce(transform.right * 1.2f);
+            }
+            else
+            {
+                m_Rigidbody.AddForce(-transform.right * 1.2f);
+            }
         }
-        return(dest);
     }
 }
