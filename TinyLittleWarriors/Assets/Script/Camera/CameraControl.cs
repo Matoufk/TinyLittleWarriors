@@ -21,27 +21,27 @@ public class CameraControl : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.D))
         {
-            transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
+            transform.Translate(new Vector3(-speed * Time.deltaTime, 0, 0));
         }
         if (Input.GetKey(KeyCode.Q))
         {
-            transform.Translate(new Vector3(-speed * Time.deltaTime, 0, 0));
+            transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
         }
         if (Input.GetKey(KeyCode.S))
         {
-            transform.Translate(new Vector3(0, 0, -speed * Time.deltaTime));
+            transform.Translate(new Vector3(0, 0, speed * Time.deltaTime));
         }
         if (Input.GetKey(KeyCode.Z))
         {
-            transform.Translate(new Vector3(0, 0, speed * Time.deltaTime));
+            transform.Translate(new Vector3(0, 0, -speed * Time.deltaTime));
         }
         if (Input.GetKey(KeyCode.A))
         {
-            transform.RotateAround(this.GameObject().transform.position, Vector3.up, -rotationSpeed * Time.deltaTime);
+            transform.RotateAround(this.GameObject().transform.position, Vector3.up, rotationSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.E))
         {
-            transform.RotateAround(this.GameObject().transform.position, Vector3.up, rotationSpeed * Time.deltaTime);
+            transform.RotateAround(this.GameObject().transform.position, Vector3.up, -rotationSpeed * Time.deltaTime);
         }
         if (Input.GetAxis("Mouse ScrollWheel") != 0)
         {

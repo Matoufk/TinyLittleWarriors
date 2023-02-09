@@ -118,7 +118,7 @@ public class AgentBehavior : MonoBehaviour
                         if (dmg <= 0) dmg = 1;
                         target.GetComponent<UnitHealth>().TakeDamage((int)dmg);
                         nextAttackTime = Time.time + atkSpeed;
-                        print("degats : " + dmg);
+                        //print("degats : " + dmg);
                     }
                 }
 
@@ -206,18 +206,21 @@ public class AgentBehavior : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hitData;
         Physics.Raycast(ray, out hitData);
-        Vector3 hitPose = hitData.collider.ClosestPoint(transform.position);
-        float dir = Vector3.Dot(hitPose, transform.right);
-        test = dir;
-        if(hitData.distance <= 3.0)
+        if (hitData.collider != null)
         {
-            if (dir >= 0)
+            Vector3 hitPose = hitData.collider.ClosestPoint(transform.position);
+            float dir = Vector3.Dot(hitPose, transform.right);
+            test = dir;
+            if(hitData.distance <= 3.0)
             {
-                m_Rigidbody.AddForce(transform.right * 1.2f);
-            }
-            else
-            {
-                m_Rigidbody.AddForce(-transform.right * 1.2f);
+                if (dir >= 0)
+                {
+                    m_Rigidbody.AddForce(transform.right * 1.2f);
+                }
+                else
+                {
+                    m_Rigidbody.AddForce(-transform.right * 1.2f);
+                }
             }
         }
     }

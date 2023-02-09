@@ -269,6 +269,7 @@ public class PlacementBehavior : MonoBehaviour
                 GameObject duplicate = Instantiate(selectedObj_, dupPos, Quaternion.identity);
                 duplicate.gameObject.tag = "Ally";
                 duplicate.GetComponent<CharacterStats>().setLife(Mathf.RoundToInt(selectedObj_.GetComponent<CharacterStats>().getMaxLife() * 0.7f));
+                duplicate.GetComponent<CharacterStats>().setAttack(Mathf.RoundToInt(selectedObj_.GetComponent<CharacterStats>().getAttack() * 0.1f));
                 orphans.Add(duplicate);
                 duplicate.name = "Soldier" + (i);
 
