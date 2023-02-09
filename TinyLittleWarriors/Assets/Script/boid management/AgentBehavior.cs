@@ -53,6 +53,8 @@ public class AgentBehavior : MonoBehaviour
         switch (state)
         {
             case AgentFSM.Seek:
+                moving = true;
+                animator.SetBool("moving", moving);
                 if (target == null)
                 {
                     List<Agent> enemies = new List<Agent>();
@@ -73,6 +75,7 @@ public class AgentBehavior : MonoBehaviour
                 }
                 else
                 {
+                   
                     seekScript.setTarget(target.transform);
                     checkForObstacle();
                     seekScript.seeking();
