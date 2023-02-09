@@ -17889,7 +17889,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8387988901763637301, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
       propertyPath: sceneToRestartTo
-      value: V0_scene
+      value: Main_Scene
       objectReference: {fileID: 0}
     - target: {fileID: 8641871386450617301, guid: dd76de2f57bc1c447b3fa3563494d760, type: 3}
       propertyPath: m_AnchoredPosition.x
