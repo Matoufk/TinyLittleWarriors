@@ -3,17 +3,18 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
-    public float speed = 10.0f;
+    public float speed = 2.0f;
     public float zoomSpeed = 20.0f;
     public float rotationSpeed = 30.0f;
 
     float angle;
-
+    private GameObject cam;
     
     // Start is called before the first frame update
     void Start()
     {
         angle = Mathf.Deg2Rad * this.gameObject.transform.rotation.x;
+        cam = GameObject.FindGameObjectWithTag("MainCamera");
     }
 
     // Update is called once per frame
@@ -42,6 +43,14 @@ public class CameraControl : MonoBehaviour
         if (Input.GetKey(KeyCode.E))
         {
             transform.RotateAround(this.GameObject().transform.position, Vector3.up, -rotationSpeed * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.R))
+        {
+            transform.RotateAround(this.GameObject().transform.position, transform.right, -rotationSpeed * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.F))
+        {
+            transform.RotateAround(this.GameObject().transform.position, transform.right, rotationSpeed * Time.deltaTime);
         }
         if (Input.GetAxis("Mouse ScrollWheel") != 0)
         {

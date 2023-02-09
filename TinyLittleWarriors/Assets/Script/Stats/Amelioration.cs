@@ -36,6 +36,12 @@ public class Amelioration : MonoBehaviour
         foreach (GameObject ally in allies)
         {
             applySpeedBoost(ally);
+            ParticleSystem ps = ally.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                ally.GetComponent<ParticleSystem>().startColor = Color.red;
+                ally.GetComponent<ParticleSystem>().Play();
+            }
         }
     }
     public static void applySpeedBoostGlobal(float val)
@@ -102,6 +108,12 @@ public class Amelioration : MonoBehaviour
         foreach (GameObject ally in allies)
         {
             applyAttackBoost(ally);
+            ParticleSystem ps = ally.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                ally.GetComponent<ParticleSystem>().startColor = Color.cyan;
+                ally.GetComponent<ParticleSystem>().Play();
+            }
         }
     }
     public static void applyAttackBoostGlobal(float val)
@@ -166,6 +178,12 @@ public class Amelioration : MonoBehaviour
         foreach (GameObject ally in allies)
         {
             applyDefenseBoost(ally);
+            ParticleSystem ps = ally.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                ally.GetComponent<ParticleSystem>().startColor = Color.yellow;
+                ally.GetComponent<ParticleSystem>().Play();
+            }
         }
     }
     public static void applyDefenseBoostGlobal(float val)
